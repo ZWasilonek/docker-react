@@ -1,0 +1,15 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t zosiaw/docker-react -f Dockerfile.dev .
+
+# Due to a change in how the Jest library works with Create React App, we need to make a small modification:
+# script:
+#   - docker run USERNAME/docker-react npm run test -- --coverage
+script:
+  - docker run -e CI=true zosiaw/docker-react npm run test
+
+language: generic 
+ 
